@@ -18,13 +18,15 @@ class VideoStream(Screen):
 
 	def __init__(self, **kwargs):
 		super(VideoStream, self).__init__(**kwargs)
+		self.pos = 0, 0
 		self.x = 0
 		self.y = 0
 		Clock.schedule_interval(self.fetchScreen, 0.1)
 
 	def fetchScreen(self, dt):
 		server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		serverAddress = '80.221.148.147'
+		# serverAddress = '80.221.148.147'
+		serverAddress = '192.168.43.133'
 		port = 5555
 		address = (serverAddress, port)
 		server.connect(address)
@@ -40,6 +42,18 @@ class VideoStream(Screen):
 		image.save(os.path.dirname(os.path.realpath(__file__))+'/imagedata/screencapture.jpg')
 		self.img_src = os.path.dirname(os.path.realpath(__file__))+'/imagedata/screencapture.jpg'
 		self.ids.image_source.reload()
+
+	def on_touch_down(self, touch):
+		self.movementX = touch.pos[0]
+		self.movementY = touch.pos[1]
+
+	def on_touch_move(self, touch):
+		newX = self.x + self.movementX - touch.pos[0]
+		newY = self.y + self.movementY - touch.pos[1]
+		if 0 <= newX:
+			self.x = newX
+		if 0 <= newY:
+			self.y = newY
 
 class Application(App):
 	def build(self):
