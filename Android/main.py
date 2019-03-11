@@ -18,9 +18,8 @@ class VideoStream(Screen):
 
 	def __init__(self, **kwargs):
 		super(VideoStream, self).__init__(**kwargs)
-		self.pos = 0, 0
-		self.x = 0
-		self.y = 0
+		self.imgX = 0
+		self.imgY = 0
 		Clock.schedule_interval(self.fetchScreen, 0.1)
 
 	def fetchScreen(self, dt):
@@ -30,7 +29,7 @@ class VideoStream(Screen):
 		port = 5555
 		address = (serverAddress, port)
 		server.connect(address)
-		server.send(str.encode(str(self.x)+'-'+str(self.y)))
+		server.send(str.encode(str(self.imgX)+'-'+str(self.imgY)))
 		image_data = b''
 		while True:
 			data = server.recv(20480)
@@ -48,12 +47,12 @@ class VideoStream(Screen):
 		self.movementY = touch.pos[1]
 
 	def on_touch_move(self, touch):
-		newX = self.x + self.movementX - touch.pos[0]
-		newY = self.y + self.movementY - touch.pos[1]
+		newX = self.imgX + self.movementX - touch.pos[0]
+		newY = self.imgY + self.movementY - touch.pos[1]
 		if 0 <= newX:
-			self.x = newX
+			self.imgX = newX
 		if 0 <= newY:
-			self.y = newY
+			self.imgY = newY
 
 class Application(App):
 	def build(self):
