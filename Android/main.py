@@ -8,7 +8,7 @@ from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen
 from PIL import Image
-from threading import *
+from threading import _start_new_thread
 
 Config.set('graphics','resizable',0)
 kv = Builder.load_file('kv.kv')
@@ -23,16 +23,15 @@ class VideoStream(Screen):
 		Clock.schedule_interval(self.fetchScreen, 0.1)
 
 	def fetchScreen(self, dt):
-		server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		# serverAddress = '80.221.148.147'
-		serverAddress = '192.168.43.133'
+		self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		serverAddress = '80.221.148.147'
 		port = 5555
 		address = (serverAddress, port)
-		server.connect(address)
-		server.send(str.encode(str(self.imgX)+'-'+str(self.imgY)))
+		self.server.connect(address)
+		self.server.send(str.encode(str(self.imgX)+'-'+str(self.imgY)))
 		image_data = b''
 		while True:
-			data = server.recv(20480)
+			data = self.server.recv(20480)
 			if not data:
 				break
 			else:
@@ -53,6 +52,10 @@ class VideoStream(Screen):
 			self.imgX = newX
 		if 0 <= newY:
 			self.imgY = newY
+		
+	def on_touch_up(self, touch):
+		if self.movementX == touch.pos[0] and self.movementY == touch.pos[1]:
+			_start_new_thread(self.server.send, (str.encode(str(self.imgX + touch.pos[0])+'_'+str(self.imgY + touch.pos[1])),))
 
 class Application(App):
 	def build(self):
