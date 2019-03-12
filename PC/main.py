@@ -5,7 +5,7 @@ from collections import deque
 from grabscreen import grab_screen
 
 def main():
-	serverAddress = '80.221.148.147'
+	serverAddress = ''
 	port = 5555
 	server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	server.bind((serverAddress, port))

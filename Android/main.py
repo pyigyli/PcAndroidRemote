@@ -20,7 +20,7 @@ class VideoStream(Screen):
 
 	def fetchScreen(self, dt):
 		self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		serverAddress = '80.221.148.147'
+		serverAddress = ''
 		port = 5555
 		address = (serverAddress, port)
 		self.server.connect(address)
