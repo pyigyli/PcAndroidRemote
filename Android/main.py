@@ -1,16 +1,12 @@
 import os
-import pygame
 import socket
 from kivy.app import App
 from kivy.clock import Clock
-from kivy.config import Config
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen
 from PIL import Image
-from threading import _start_new_thread
 
-Config.set('graphics','resizable',0)
 kv = Builder.load_file('kv.kv')
 
 class VideoStream(Screen):
@@ -20,7 +16,7 @@ class VideoStream(Screen):
 		super(VideoStream, self).__init__(**kwargs)
 		self.imgX = 0
 		self.imgY = 0
-		Clock.schedule_interval(self.fetchScreen, 0.1)
+		Clock.schedule_interval(self.fetchScreen, 0.3)
 
 	def fetchScreen(self, dt):
 		self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -52,10 +48,6 @@ class VideoStream(Screen):
 			self.imgX = newX
 		if 0 <= newY:
 			self.imgY = newY
-		
-	def on_touch_up(self, touch):
-		if self.movementX == touch.pos[0] and self.movementY == touch.pos[1]:
-			_start_new_thread(self.server.send, (str.encode(str(self.imgX + touch.pos[0])+'_'+str(self.imgY + touch.pos[1])),))
 
 class Application(App):
 	def build(self):

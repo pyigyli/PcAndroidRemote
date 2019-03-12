@@ -10,7 +10,7 @@ package.name = PCAndroidRemote
 package.domain = org.PcAndroidRemote
 
 # (str) Source code where the main.py live
-source.dir = D:/VisualStudio/PcAndroidRemote/Android
+source.dir = ***ADD PATH*** /PcAndroidRemote/Android
 
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas

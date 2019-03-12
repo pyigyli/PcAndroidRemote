@@ -1,1 +1,3 @@
-﻿I have not tested this on an actual mobile device, but it does work on a computer. If you have Linux operating system, you can try and build the Android app using buildozer.
+﻿Not really a remoter. Only works for streaming low fps videocapture of you screen. The viewport is 1280*720 pixels and that seems to be a bit too large. You can move the screen.
+
+I have not tested this on an actual mobile device, but it does work on a computer. If you have Linux operating system, you can try and build the Android app using buildozer. Just change the *source.dir* at line 13. You would also need to change the serverAddress variable on both *main.py* files. You can find your local network address with console command *ipconfig*.
