@@ -1,3 +1,1 @@
-﻿**Work in progress.**
-
-Video footage does appear on the mobile app, but framerate is slow. Smaller capturing size should likely fix it. I have yet to test this on an actual mobile device.
+﻿I have not tested this on an actual mobile device, but it does work on a computer. If you have Linux operating system, you can try and build the Android app using buildozer.

@@ -37,8 +37,8 @@ class VideoStream(Screen):
 			else:
 				image_data += data
 		image = Image.frombytes('RGB', (1280,720), image_data)
-		image.save(os.path.dirname(os.path.realpath(__file__))+'/imagedata/screencapture.jpg')
-		self.img_src = os.path.dirname(os.path.realpath(__file__))+'/imagedata/screencapture.jpg'
+		image.save(os.path.dirname(os.path.realpath(__file__))+'/images/screencapture.jpg')
+		self.img_src = os.path.dirname(os.path.realpath(__file__))+'/images/screencapture.jpg'
 		self.ids.image_source.reload()
 
 	def on_touch_down(self, touch):
